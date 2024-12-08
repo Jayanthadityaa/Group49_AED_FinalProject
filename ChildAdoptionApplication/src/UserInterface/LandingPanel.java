@@ -4,17 +4,53 @@
  */
 package UserInterface;
 
+import java.awt.Color;
+import java.awt.Font;
+import static java.awt.Font.BOLD;
+import java.awt.Graphics;
+import java.awt.Graphics2D;
+import javax.swing.JOptionPane;
+
 /**
  *
  * @author sruja
  */
 public class LandingPanel extends javax.swing.JPanel {
+    int x=0;
+    int y=100;
+    int a=400;
+    int b=200;
 
     /**
      * Creates new form LandingPanel
      */
     public LandingPanel() {
         initComponents();
+    }
+    
+    public void paint(Graphics gp) { 
+        super.paint(gp);
+        Graphics2D g2d= (Graphics2D) gp;
+        g2d.setColor(Color.pink);
+        g2d.setFont(new Font("ARIAL", BOLD, 50));
+             
+        g2d.drawString("Every Child Deserves A Family", x, y);
+        try {
+            Thread.sleep(200);
+            x+=20;
+            a-=20;
+            if(x>getWidth())
+        {
+            x=0;
+        }
+            if(a<0)
+        {
+            a=400;
+        }
+            repaint();           
+        } catch (InterruptedException ex) {
+            JOptionPane.showMessageDialog(this, ex);
+        }   
     }
 
     /**

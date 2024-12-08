@@ -4,7 +4,10 @@
  */
 package UserInterface;
 
+import Business.ConfigureSystem;
+import Business.EcoSystem;
 import static Business.EcoSystem.system;
+import UserInterface.LoginScreens.loginOptions;
 import java.awt.CardLayout;
 
 /**
@@ -12,13 +15,33 @@ import java.awt.CardLayout;
  * @author sruja
  */
 public class MainJFrameFinal extends javax.swing.JFrame {
+    private EcoSystem system;
+    public static OrphanageDirectory orphanageDirectory;
 
     /**
      * Creates new form MainJFrameFinal
      */
     public MainJFrameFinal() {
         initComponents();
+        system = ConfigureSystem.configure();  
+        LandingPanel lp = new LandingPanel();
+        userProcessContainer.add("LandingPanel", lp);
+        CardLayout layout = (CardLayout)this.userProcessContainer.getLayout();
+        layout.next(userProcessContainer);
     }
+    
+    public static OrphanageDirectory getOrphanageDirectory() {
+    if (orphanageDirectory == null) {
+      orphanageDirectory = new OrphanageDirectory();
+        Orphanage o1 = new Orphanage();
+        o1.setUsername("First Orphanage - Default Pending");
+        Orphanage o2 = new Orphanage();
+        o2.setUsername("Second Orphanage - Already Approved");
+        o2.setStatus(Orphanage.Status.APPROVED);
+    }
+    return orphanageDirectory;
+  } 
+
 
     /**
      * This method is called from within the constructor to initialize the form.
@@ -89,13 +112,16 @@ public class MainJFrameFinal extends javax.swing.JFrame {
             .addGroup(topJPanelLayout.createSequentialGroup()
                 .addGap(51, 51, 51)
                 .addComponent(btnLogin, javax.swing.GroupLayout.PREFERRED_SIZE, 215, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 50, Short.MAX_VALUE)
+                .addGap(255, 255, 255)
                 .addComponent(btnRegister, javax.swing.GroupLayout.PREFERRED_SIZE, 215, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(490, 490, 490)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 289, Short.MAX_VALUE)
                 .addComponent(btnLogout, javax.swing.GroupLayout.PREFERRED_SIZE, 213, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addGap(51, 51, 51))
             .addComponent(jLabel2, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
         );
+
+        topJPanelLayout.linkSize(javax.swing.SwingConstants.HORIZONTAL, new java.awt.Component[] {btnLogin, btnLogout, btnRegister});
+
         topJPanelLayout.setVerticalGroup(
             topJPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(topJPanelLayout.createSequentialGroup()
@@ -113,7 +139,7 @@ public class MainJFrameFinal extends javax.swing.JFrame {
         TopPanel.setLayout(TopPanelLayout);
         TopPanelLayout.setHorizontalGroup(
             TopPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 1285, Short.MAX_VALUE)
+            .addGap(0, 1291, Short.MAX_VALUE)
             .addGroup(TopPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                 .addGroup(TopPanelLayout.createSequentialGroup()
                     .addGap(0, 0, Short.MAX_VALUE)
@@ -136,7 +162,7 @@ public class MainJFrameFinal extends javax.swing.JFrame {
         userProcessContainer.setLayout(userProcessContainerLayout);
         userProcessContainerLayout.setHorizontalGroup(
             userProcessContainerLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 1285, Short.MAX_VALUE)
+            .addGap(0, 1291, Short.MAX_VALUE)
         );
         userProcessContainerLayout.setVerticalGroup(
             userProcessContainerLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -213,12 +239,11 @@ public class MainJFrameFinal extends javax.swing.JFrame {
             java.util.logging.Logger.getLogger(MainJFrameFinal.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
         }
         //</editor-fold>
-
         /* Create and display the form */
-        java.awt.EventQueue.invokeLater(new Runnable() {
-            public void run() {
-                new MainJFrameFinal().setVisible(true);
-            }
+         java.awt.EventQueue.invokeLater(() -> {
+         MainJFrameFinal myFrame = new MainJFrameFinal();
+         myFrame.setVisible(true);
+         myFrame.setExtendedState(myFrame.getExtendedState() | MainJFrameFinal.MAXIMIZED_BOTH);
         });
     }
 
