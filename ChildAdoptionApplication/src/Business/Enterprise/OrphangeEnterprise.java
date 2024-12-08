@@ -11,7 +11,7 @@ import javax.management.relation.Role;
  *
  * @author jayanthkappagantulaa
  */
-public class OrphangeEnterprise {
+public class OrphangeEnterprise extends Enterprise{
     
     public OrphangeEnterprise(String name){
         super(name,Enterprise.EnterpriseType.OrphanageEnterprise);
