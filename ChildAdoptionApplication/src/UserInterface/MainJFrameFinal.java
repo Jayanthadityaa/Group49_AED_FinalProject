@@ -4,18 +4,44 @@
  */
 package UserInterface;
 
+import Business.ConfigureSystem;
+import Business.EcoSystem;
+import static Business.EcoSystem.system;
+import UserInterface.LoginScreens.loginOptions;
+import java.awt.CardLayout;
+
 /**
  *
  * @author sruja
  */
 public class MainJFrameFinal extends javax.swing.JFrame {
+    private EcoSystem system;
+    public static OrphanageDirectory orphanageDirectory;
 
     /**
      * Creates new form MainJFrameFinal
      */
     public MainJFrameFinal() {
         initComponents();
+        system = ConfigureSystem.configure();  
+        LandingPanel lp = new LandingPanel();
+        userProcessContainer.add("LandingPanel", lp);
+        CardLayout layout = (CardLayout)this.userProcessContainer.getLayout();
+        layout.next(userProcessContainer);
     }
+    
+    public static OrphanageDirectory getOrphanageDirectory() {
+    if (orphanageDirectory == null) {
+      orphanageDirectory = new OrphanageDirectory();
+        Orphanage o1 = new Orphanage();
+        o1.setUsername("First Orphanage - Default Pending");
+        Orphanage o2 = new Orphanage();
+        o2.setUsername("Second Orphanage - Already Approved");
+        o2.setStatus(Orphanage.Status.APPROVED);
+    }
+    return orphanageDirectory;
+  } 
+
 
     /**
      * This method is called from within the constructor to initialize the form.
@@ -28,21 +54,106 @@ public class MainJFrameFinal extends javax.swing.JFrame {
 
         jSplitPane1 = new javax.swing.JSplitPane();
         TopPanel = new javax.swing.JPanel();
+        topJPanel = new javax.swing.JPanel();
+        btnLogin = new javax.swing.JButton();
+        btnRegister = new javax.swing.JButton();
+        btnLogout = new javax.swing.JButton();
+        jLabel2 = new javax.swing.JLabel();
         userProcessContainer = new javax.swing.JPanel();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
 
         jSplitPane1.setOrientation(javax.swing.JSplitPane.VERTICAL_SPLIT);
 
+        topJPanel.setBackground(new java.awt.Color(255, 255, 255));
+
+        btnLogin.setBackground(new java.awt.Color(255, 204, 204));
+        btnLogin.setFont(new java.awt.Font("Arial Black", 0, 24)); // NOI18N
+        btnLogin.setText("LOGIN");
+        btnLogin.setBorder(javax.swing.BorderFactory.createEmptyBorder(1, 1, 1, 1));
+        btnLogin.setFocusPainted(false);
+        btnLogin.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnLoginActionPerformed(evt);
+            }
+        });
+
+        btnRegister.setBackground(new java.awt.Color(255, 204, 204));
+        btnRegister.setFont(new java.awt.Font("Arial Black", 0, 24)); // NOI18N
+        btnRegister.setText("REGISTER");
+        btnRegister.setBorder(javax.swing.BorderFactory.createEmptyBorder(1, 1, 1, 1));
+        btnRegister.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnRegisterActionPerformed(evt);
+            }
+        });
+
+        btnLogout.setBackground(new java.awt.Color(255, 204, 204));
+        btnLogout.setFont(new java.awt.Font("Arial Black", 0, 24)); // NOI18N
+        btnLogout.setText("LOGOUT");
+        btnLogout.setBorder(javax.swing.BorderFactory.createEmptyBorder(1, 1, 1, 1));
+        btnLogout.setMaximumSize(new java.awt.Dimension(131, 42));
+        btnLogout.setMinimumSize(new java.awt.Dimension(131, 42));
+        btnLogout.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnLogoutActionPerformed(evt);
+            }
+        });
+
+        jLabel2.setFont(new java.awt.Font("Arial Black", 1, 30)); // NOI18N
+        jLabel2.setForeground(new java.awt.Color(255, 153, 153));
+        jLabel2.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
+        jLabel2.setText("CHILD ADOPTION SYSTEM");
+
+        javax.swing.GroupLayout topJPanelLayout = new javax.swing.GroupLayout(topJPanel);
+        topJPanel.setLayout(topJPanelLayout);
+        topJPanelLayout.setHorizontalGroup(
+            topJPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(topJPanelLayout.createSequentialGroup()
+                .addGap(51, 51, 51)
+                .addComponent(btnLogin, javax.swing.GroupLayout.PREFERRED_SIZE, 215, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGap(255, 255, 255)
+                .addComponent(btnRegister, javax.swing.GroupLayout.PREFERRED_SIZE, 215, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 289, Short.MAX_VALUE)
+                .addComponent(btnLogout, javax.swing.GroupLayout.PREFERRED_SIZE, 213, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGap(51, 51, 51))
+            .addComponent(jLabel2, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+        );
+
+        topJPanelLayout.linkSize(javax.swing.SwingConstants.HORIZONTAL, new java.awt.Component[] {btnLogin, btnLogout, btnRegister});
+
+        topJPanelLayout.setVerticalGroup(
+            topJPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(topJPanelLayout.createSequentialGroup()
+                .addContainerGap()
+                .addComponent(jLabel2, javax.swing.GroupLayout.PREFERRED_SIZE, 48, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addGroup(topJPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(btnLogout, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(btnRegister)
+                    .addComponent(btnLogin))
+                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+        );
+
         javax.swing.GroupLayout TopPanelLayout = new javax.swing.GroupLayout(TopPanel);
         TopPanel.setLayout(TopPanelLayout);
         TopPanelLayout.setHorizontalGroup(
             TopPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 1101, Short.MAX_VALUE)
+            .addGap(0, 1291, Short.MAX_VALUE)
+            .addGroup(TopPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                .addGroup(TopPanelLayout.createSequentialGroup()
+                    .addGap(0, 0, Short.MAX_VALUE)
+                    .addComponent(topJPanel, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addGap(0, 0, Short.MAX_VALUE)))
         );
         TopPanelLayout.setVerticalGroup(
             TopPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 100, Short.MAX_VALUE)
+            .addGap(0, 103, Short.MAX_VALUE)
+            .addGroup(TopPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                .addGroup(TopPanelLayout.createSequentialGroup()
+                    .addGap(0, 0, Short.MAX_VALUE)
+                    .addComponent(topJPanel, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addGap(0, 0, Short.MAX_VALUE)))
         );
 
         jSplitPane1.setTopComponent(TopPanel);
@@ -51,7 +162,7 @@ public class MainJFrameFinal extends javax.swing.JFrame {
         userProcessContainer.setLayout(userProcessContainerLayout);
         userProcessContainerLayout.setHorizontalGroup(
             userProcessContainerLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 1101, Short.MAX_VALUE)
+            .addGap(0, 1291, Short.MAX_VALUE)
         );
         userProcessContainerLayout.setVerticalGroup(
             userProcessContainerLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -64,6 +175,43 @@ public class MainJFrameFinal extends javax.swing.JFrame {
 
         pack();
     }// </editor-fold>//GEN-END:initComponents
+
+    private void btnLoginActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnLoginActionPerformed
+        loginOptions ls = new loginOptions(userProcessContainer,system);
+        userProcessContainer.add("loginOptions", ls);
+        CardLayout layout = (CardLayout)this.userProcessContainer.getLayout();
+        layout.next(userProcessContainer);
+        btnLogout.setEnabled(true);
+        btnLogin.setEnabled(false);
+        btnRegister.setEnabled(false);
+
+    }//GEN-LAST:event_btnLoginActionPerformed
+
+    private void btnRegisterActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnRegisterActionPerformed
+        // TODO add your handling code here:
+        registerOptions ls = new registerOptions(userProcessContainer,system);
+        userProcessContainer.add("registerOptions", ls);
+        CardLayout layout = (CardLayout)this.userProcessContainer.getLayout();
+        layout.next(userProcessContainer);
+        btnLogout.setEnabled(true);
+        btnLogin.setEnabled(false);
+        btnRegister.setEnabled(false);
+    }//GEN-LAST:event_btnRegisterActionPerformed
+
+    private void btnLogoutActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnLogoutActionPerformed
+        // TODO add your handling code here:
+        btnLogout.setEnabled(false);
+        btnLogin.setEnabled(true);
+        btnRegister.setEnabled(true);
+
+        userProcessContainer.removeAll();
+
+        LandingPanel lp = new LandingPanel();
+        userProcessContainer.add("LandingPanel", lp);
+        CardLayout layout = (CardLayout)this.userProcessContainer.getLayout();
+        layout.next(userProcessContainer);
+        //        dB4OUtil.storeSystem(system);
+    }//GEN-LAST:event_btnLogoutActionPerformed
 
     /**
      * @param args the command line arguments
@@ -91,18 +239,22 @@ public class MainJFrameFinal extends javax.swing.JFrame {
             java.util.logging.Logger.getLogger(MainJFrameFinal.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
         }
         //</editor-fold>
-
         /* Create and display the form */
-        java.awt.EventQueue.invokeLater(new Runnable() {
-            public void run() {
-                new MainJFrameFinal().setVisible(true);
-            }
+         java.awt.EventQueue.invokeLater(() -> {
+         MainJFrameFinal myFrame = new MainJFrameFinal();
+         myFrame.setVisible(true);
+         myFrame.setExtendedState(myFrame.getExtendedState() | MainJFrameFinal.MAXIMIZED_BOTH);
         });
     }
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JPanel TopPanel;
+    private javax.swing.JButton btnLogin;
+    private javax.swing.JButton btnLogout;
+    private javax.swing.JButton btnRegister;
+    private javax.swing.JLabel jLabel2;
     private javax.swing.JSplitPane jSplitPane1;
+    private javax.swing.JPanel topJPanel;
     private javax.swing.JPanel userProcessContainer;
     // End of variables declaration//GEN-END:variables
 }
